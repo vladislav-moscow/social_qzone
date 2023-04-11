@@ -5,18 +5,20 @@ import Post from "../post/Post";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Feed() {
+export default function Feed({username}) {
   // eslint-disable-next-line no-unused-vars
   const [posts, setPosts] = useState([]);
   
   useEffect(() => {
     const fetchPosts = async () => {
-      const responce = await axios.get("http://localhost:8800/api/posts/timeline/642f0c383434e09bdb761213")
+      const responce = username
+        ? await axios.get(`http://localhost:8800/api/posts/profile/${username}`)
+        : await axios.get(`http://localhost:8800/api/posts/timeline/642f0c383434e09bdb761213`);
         setPosts( responce.data)
       
     };
     fetchPosts();
-  }, []);
+  }, [username]);
   return (
     <div className="feed">
       <div className="feed__Wrapper">

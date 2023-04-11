@@ -3,7 +3,7 @@ import { MoreVert } from "@mui/icons-material";
 import { useEffect,useState } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 //import { AuthContext } from "../../context/AuthContext";
 
 
@@ -16,7 +16,7 @@ export default function Post({ post }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const responce = await axios.get(`http://localhost:8800/api/users/${post.userId}`)
+      const responce = await axios.get(`http://localhost:8800/api/users?userId=${post.userId}`)
         setUser( responce.data)
       
     };
@@ -32,13 +32,16 @@ export default function Post({ post }) {
       <div className="post__Wrapper">
         <div className="post__Top">
           <div className="post__Top-Left">
-            <img
-              className="post__Profile-Img"
-              src={user.profilePicture
-                ? PF + user.profilePicture
-                : PF + "person/noAvatar.png"}
-              alt=""
-            />
+            <Link to={`profile/${user.username}`}>
+              <img
+                className="post__Profile-Img"
+                src={user.profilePicture
+                  ? PF + user.profilePicture
+                  : PF + "person/noAvatar.png"}
+                alt=""
+              />
+            </Link>
+            
             <span className="post__Username">
               {user.username}
             </span>
@@ -54,8 +57,8 @@ export default function Post({ post }) {
         </div>
         <div className="post__Bottom">
           <div className="post__Bottom-Left">
-            <img className="like__Icon" src="assets/like.png" onClick={likeHandler} alt="" />
-            <img className="like__Icon" src="assets/heart.png" onClick={likeHandler} alt="" />
+            <img className="like__Icon" src={`${PF}like.png`} onClick={likeHandler} alt="" />
+            <img className="like__Icon" src={`${PF}heart.png`} onClick={likeHandler} alt="" />
             <span className="post__Like-Counter">{like} people like it</span>
           </div>
           <div className="post__Bottom-Right">

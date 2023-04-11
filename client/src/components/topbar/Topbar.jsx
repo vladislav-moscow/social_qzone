@@ -3,11 +3,14 @@ import { Search, Person, Chat, Notifications } from "@mui/icons-material";
 import {Link} from "react-router-dom";
 
 export default function Topbar() {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER
   return (
     <div className="topbar__Container">
       <div className="topbar__Left">
         <Link to="/" style={{textDecoration:"none"}}>
-        <span className="logo">Social</span>
+        <span className="logo">
+          <img src={`${PF}logo.png`} alt="" />
+        </span>
         </Link>
         
       </div>

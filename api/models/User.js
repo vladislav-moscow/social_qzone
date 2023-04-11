@@ -56,6 +56,10 @@ const UserSchema = new mongoose.Schema(
       type: Number,
       enum: [1, 2, 3],
     },
+    gender: {
+      type: Number,
+      enum:[1, 2]
+    }
   },
   { timestamps: true }
 );
