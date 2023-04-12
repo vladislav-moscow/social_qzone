@@ -1,14 +1,29 @@
-import { useRef } from "react"
-import "./login.css"
+import { useContext, useRef } from "react";
+import "./login.css";
+import { loginCall } from "../../apiCalls";
+import { AuthContext } from "../../context/AuthContext";
+import { CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const email = useRef();
   const password = useRef();
+  let navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
+  const {user, isFetching, error, dispatch} = useContext(AuthContext);
 
   const handleClick = (e) => {
     e.preventDefault()
+    loginCall({email:email.current.value, password:password.current.value}, dispatch)
+    
+  };
 
+  const navigateClick = (e) => {
+    e.preventDefault()
+    navigate("/register");
   }
+
+  console.log(user)
 
   return (
     <div className="login">
@@ -20,13 +35,23 @@ export default function Login() {
           </span>
         </div>
         <div className="login__Right">
-          <form className="login__Box" onClick={handleClick}>
+          <form className="login__Box" onSubmit={handleClick}>
             <input ref={email} placeholder="Email" type="email" required className="login__Input" />
             <input ref={password} placeholder="Password" type="password" required minLength="6" className="login__Input" />
-            <button className="login__Button">Log In</button>
+            <button className="login__Button" type="submit" disabled={isFetching}>
+              {isFetching ? (
+                <CircularProgress sx={{ color: 'white' }}/>
+              ) : (
+                "Log In"
+              )}
+            </button>
             <span className="login__Forgot">Forgot Password?</span>
-            <button className="login__Register-Button">
-              Create a New Account
+            <button className="login__Register-Button" type="submit" onClick={navigateClick}>
+            {isFetching ? (
+                <CircularProgress sx={{ color: 'white' }}/>
+              ) : (
+                "Create a New Account"
+              )}
             </button>
           </form>
         </div>
