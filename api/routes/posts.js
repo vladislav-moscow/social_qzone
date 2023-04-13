@@ -61,6 +61,7 @@ router.put("/:id/like", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+  return
 });
 
 //найти пост

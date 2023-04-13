@@ -74,3 +74,21 @@
     cursor: pointer;
     color: white;
 }
+
+.share__Img-Container{
+  padding: 0 20px 10px 20px;
+  position: relative;
+}
+
+.share__Img{
+  width: 100%;
+  object-fit: cover;
+}
+
+.share__Cance-lImg{
+  position: absolute;
+  top: 0;
+  right: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+}
