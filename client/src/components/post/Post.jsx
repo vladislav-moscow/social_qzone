@@ -21,7 +21,7 @@ export default function Post({ post }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const responce = await axios.get(`http://localhost:8800/api/users?userId=${post.userId}`)
+      const responce = await axios.get(`/users?userId=${post.userId}`)
         setUser( responce.data)
       
     };
@@ -30,7 +30,7 @@ export default function Post({ post }) {
 
   const likeHandler =()=>{
     try{
-      axios.put(`http://localhost:8800/api/posts/${post._id}/like`, {userId:currentUser._id})
+      axios.put(`/posts/${post._id}/like`, {userId:currentUser._id})
     }catch(err) {
       console.log(err)
     }
