@@ -8,8 +8,14 @@ const INITIAL_STATE = {
     email: "vladi@gmail.com",
     profilePicture: "",
     coverPicture: "",
-    followers: [],
-    followings: [],
+    followers: [
+      "642f0c383434e09bdb761213",
+      "643057562db53c7b9d36466d"
+    ],
+    followings: [
+      "643057562db53c7b9d36466d",
+      "642f0c383434e09bdb761213"
+    ],
     isAdmin: false,
   },
   isFetching:false,

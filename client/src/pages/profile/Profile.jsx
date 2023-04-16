@@ -5,7 +5,7 @@ import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Feed from "../../components/feed/Feed";
 import Rightbar from "../../components/rightbar/Rightbar";
-import { useParams } from "react-router"
+import { useParams } from "react-router-dom";
 
 export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -19,6 +19,7 @@ export default function Profile() {
       
     };
     fetchUser();
+    return
   }, [username]);
   return (
     <>
@@ -30,12 +31,12 @@ export default function Profile() {
             <div className="profile__Cover">
               <img
                 className="profile__Cover-Img"
-                src={user.coverPicture || PF+"person/noCover.png"}
+                src={user.coverPicture ? PF+user.coverPicture : PF+"person/noCover.png"}
                 alt=""
               />
               <img
                 className="profile__User-Img"
-                src={user.profilePicture || PF+"person/noAvatar.png"}
+                src={user.profilePicture ? PF+user.profilePicture : PF+"person/noAvatar.png"}
                 alt=""
               />
             </div>

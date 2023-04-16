@@ -24,8 +24,10 @@ export default function Rightbar({user}) {
       } catch (err) {
         console.log(err);
       }
+      return
     };
     getFriends();
+    return
   }, [user]);
 
   const handleClick = async () => {
@@ -44,6 +46,7 @@ export default function Rightbar({user}) {
       setFollowed(!followed);
     } catch (err) {
     }
+    return
   };
 
   const HomeRightbar = () => {
@@ -70,7 +73,7 @@ export default function Rightbar({user}) {
     return(
       <>
         {user.username !== currentUser.username && (
-          <button className="rightbarFollowButton" onClick={handleClick}>
+          <button className="rightbar__Follow-Button" onClick={handleClick}>
             {followed ? "Unfollow" : "Follow"}
             {followed ? <Remove /> : <Add />}
           </button>
@@ -99,11 +102,11 @@ export default function Rightbar({user}) {
         <h4 className="rightbar__Title">User friends</h4>
         <div className="rightbar__Followings">
         {friends.map((friend) => (
-            <Link
+            <Link key={friend._id}
               to={"/profile/" + friend.username}
               style={{ textDecoration: "none" }}
             >
-              <div className="rightbarFollowing">
+              <div className="rightbar__Following">
                 <img
                   src={
                     friend.profilePicture
@@ -111,9 +114,9 @@ export default function Rightbar({user}) {
                       : PF + "person/noAvatar.png"
                   }
                   alt=""
-                  className="rightbarFollowingImg"
+                  className="rightbar__Following-Img"
                 />
-                <span className="rightbarFollowingName">{friend.username}</span>
+                <span className="rightbar__Following-Name">{friend.username}</span>
               </div>
             </Link>
           ))}
