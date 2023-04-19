@@ -47,7 +47,7 @@ export default function Post({ post }) {
             <Link to={`profile/${user.username}`}>
               <img
                 className="post__Profile-Img"
-                src={user.profilePicture
+                src={user?.profilePicture
                   ? PF + user.profilePicture
                   : PF + "person/noAvatar.png"}
                 alt=""

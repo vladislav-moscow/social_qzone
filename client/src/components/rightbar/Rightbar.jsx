@@ -19,15 +19,14 @@ export default function Rightbar({user}) {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const friendList = await axios.get("/users/friends/" + user._id);
+        const friendList = await axios.get("/users/friends/"+ user._id);
         setFriends(friendList.data);
-      } catch (err) {
-        console.log(err);
+      } catch (err) {       
       }
       return
     };
     getFriends();
-    
+    return
   }, [user]);
 
   const handleClick = async () => {
@@ -44,8 +43,7 @@ export default function Rightbar({user}) {
         dispatch({ type: "FOLLOW", payload: user._id });
       }
       setFollowed(!followed);
-    } catch (err) {
-    }
+    } catch (err) {console.log(err)}
     return
   };
 
@@ -109,7 +107,7 @@ export default function Rightbar({user}) {
               <div className="rightbar__Following">
                 <img
                   src={
-                    friend.profilePicture
+                    friend?.profilePicture
                       ? PF + friend.profilePicture
                       : PF + "person/noAvatar.png"
                   }

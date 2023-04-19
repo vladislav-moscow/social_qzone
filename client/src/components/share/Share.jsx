@@ -38,7 +38,7 @@ export default function Share() {
     <div className="share">
       <div className="share__Wrapper">
         <div className="share__Top">
-          <img className="share__Profile-Img" src={user.profilePicture ? PF + user.profilePicture : PF + "person/noAvatar.png"} alt="" />
+          <img className="share__Profile-Img" src={user?.profilePicture ? PF + user.profilePicture : PF + "person/noAvatar.png"} alt="" />
           <input
             placeholder= {`What's in your mind ${user.username}?`}
             className="share__Input"

@@ -23,7 +23,6 @@ export default function Login() {
     navigate("/register");
   }
 
-  console.log(user)
 
   return (
     <div className="login">

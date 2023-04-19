@@ -21,10 +21,9 @@ export default function Feed({username}) {
             return new Date(p2.createdAt) - new Date(p1.createdAt);
           })
         )
-      
+      return
     };
     fetchPosts();
-    return
   }, [username, user._id]);
   return (
     <div className="feed">
