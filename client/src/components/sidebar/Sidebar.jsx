@@ -12,6 +12,7 @@ import {
 } from "@mui/icons-material";
 import { Users } from "../../dummyData";
 import CloseFriend from "../closeFriend/CloseFriend"
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   return (
@@ -22,10 +23,13 @@ export default function Sidebar() {
             <RssFeed className="sidebar__Icon" />
             <span className="sidebar__ListItemText">Feed</span>
           </li>
-          <li className="sidebar__ListItem">
-            <Chat className="sidebar__Icon" />
-            <span className="sidebar__ListItemText">Chats</span>
-          </li>
+          <Link to="/messenger" style={{textDecoration:"none"}}>
+            <li className="sidebar__ListItem">
+              <Chat className="sidebar__Icon" />
+              <span className="sidebar__ListItemText">Chats</span>
+            </li>
+          </Link>
+          
           <li className="sidebar__ListItem">
             <PlayCircleFilledOutlined className="sidebar__Icon" />
             <span className="sidebar__ListItemText">Videos</span>

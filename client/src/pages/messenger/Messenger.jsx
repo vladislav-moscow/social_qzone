@@ -7,7 +7,7 @@ import ChatOnline from "../../components/chatOnline/ChatOnline";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
-import {io} from "socket.io-client";
+import io from "socket.io-client";
 
 /**
  * params {array} conversation содержит все беседы пользователя
@@ -19,13 +19,41 @@ import {io} from "socket.io-client";
  * return страницу сообщений со всеми данными
  */
 export default function Messenger() {
-  const [conversation, SetConversation] = useState([]); 
-  const [currentChat, SetCurrentChat] = useState(null);
-  const [messages, SetMessages] = useState([]);
-  const [newMessage, SetNewMessage] = useState("");
-  const [socket, SetSocket] = useState(null)
+  const [conversation, setConversation] = useState([]); 
+  const [currentChat, setCurrentChat] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const socket = useRef();
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const {user} = useContext(AuthContext);
   const scrollRef = useRef();
+
+  /*useEffect(() => {
+    socket.current = io("ws://localhost:8900");
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    arrivalMessage &&
+      currentChat?.members.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
+
+  useEffect(() => {
+    socket.current.emit("addUser", user._id);
+    socket.current.on("getUsers", (users) => {
+      setOnlineUsers(
+        user.followings.filter((f) => users.some((u) => u.userId === f))
+      );
+    });
+  }, [user]);*/
 
 /**
 * params {array} responce содержит данные запрос на получения всех бесед пользователя
@@ -37,7 +65,7 @@ export default function Messenger() {
     const getConversation = async () => {
       try{
         const responce = await axios.get("/conversations/"+user?._id);
-        SetConversation(responce.data);
+        setConversation(responce.data);
       }catch(err) {console.log(err)};
       return
     }
@@ -54,7 +82,7 @@ export default function Messenger() {
     const getMessages = async() => {
       try{
         const responce = await axios.get("/messages/"+currentChat?._id)
-        SetMessages(responce.data);
+        setMessages(responce.data);
       }catch(err){console.log(err)}
       return
     };
@@ -82,10 +110,18 @@ export default function Messenger() {
       text: newMessage,
       conversationId: currentChat._id
     };
+    /*const receiverId = currentChat.members.find(
+      (member) => member !== user._id
+    );
+    socket.current.emit("sendMessage", {
+      senderId: user._id,
+      receiverId,
+      text: newMessage,
+    });*/
     try{
       const responce = await axios.post("/messages", message);
-      SetMessages([...messages, responce.data]);
-      SetNewMessage("");
+      setMessages([...messages, responce.data]);
+      setNewMessage("");
     }catch(err) {console.log(err)}
     return
   }
@@ -109,7 +145,7 @@ export default function Messenger() {
           <div className="chatMenu__Wrapper">
             <input type="text" placeholder="Поиск друзей..." className="chatMenu__Input"/>
             {conversation.map(conv => ( 
-              <div onClick={()=> SetCurrentChat(conv)} key={conv._id}>
+              <div onClick={()=> setCurrentChat(conv)} key={conv._id}>
                 <Сonversation conversation={conv} currentUser={user}/>
               </div>
             ))}
@@ -118,41 +154,36 @@ export default function Messenger() {
         <div className="chatBox">
           <div className="chatBox__Wrapper">
             {
-              currentChat ?
+              currentChat ? (
             <>
-            <div className="chatBox__Top">
-              {messages.map((message)=> (
-                <div ref={scrollRef} key={message._id}>
-                  <Message message={message} own={message.sender === user._id}/>
-                </div>
-              ))}
-              
-              
-            </div>
-            <div className="chatBox__Bottom">
-              <textarea 
-                className="chatBox__Message-Input" 
-                placeholder="Введите ваше сообщение..." 
-                onChange={(e)=> {SetNewMessage(e.target.value)}}
-                value={newMessage}
-              >
-              </textarea>
-              <button className="chatBox-Btn" onClick={handleSubmitMessage}>Отправить</button>
-            </div></> : <span className="noConversationText">Открыть беседу для начало общения</span>
+              <div className="chatBox__Top">
+                {messages.map((message)=> (
+                  <div ref={scrollRef} key={message._id}>
+                    <Message message={message} own={message.sender === user._id}/>
+                  </div>
+                ))}
+              </div>
+              <div className="chatBox__Bottom">
+                <textarea 
+                  className="chatBox__Message-Input" 
+                  placeholder="Введите ваше сообщение..." 
+                  onChange={(e)=> {setNewMessage(e.target.value)}}
+                  value={newMessage}
+                >
+                </textarea>
+                <button className="chatBox-Btn" onClick={handleSubmitMessage}>Отправить</button>
+              </div>
+            </> ): ( <span className="noConversationText">Открыть беседу для начало общения</span> )
             }
           </div>
         </div>
         <div className="chatOnline">
           <div className="chatOnline__Wrapper">
-            <ChatOnline/>
-            <ChatOnline/>
-            <ChatOnline/>
-            <ChatOnline/>
-            <ChatOnline/>
-            <ChatOnline/>
-            <ChatOnline/>
-            <ChatOnline/>
-            <ChatOnline/>
+          <ChatOnline
+              onlineUsers={onlineUsers}
+              currentId={user._id}
+              setCurrentChat={setCurrentChat}
+            />
           </div>
         </div>
       </div>
