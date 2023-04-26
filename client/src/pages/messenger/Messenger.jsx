@@ -55,7 +55,9 @@ export default function Messenger() {
     socket.current.emit("addUser", user._id);
     socket.current.on("getUsers", (users) => {
       setOnlineUsers(
-        user.followings.filter((friend) => users.some((user) => user.userId === friend))
+        user.followings.filter((friend) =>
+          users.some((user) => user.userId === friend)
+        )
       );
     });
   }, [user]);

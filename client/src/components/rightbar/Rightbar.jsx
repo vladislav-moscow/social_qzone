@@ -8,26 +8,25 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { Add, Remove } from "@mui/icons-material";
 
-export default function Rightbar({users}) {
+export default function Rightbar({ users }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [followed, setFollowed] = useState(
     currentUser.followings.includes(users?.id)
   );
-  console.log(users)
+  console.log(users);
 
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const friendList = await axios.get("/users/friends/"+ users._id);
+        const friendList = await axios.get("/users/friends/" + users._id);
         setFriends(friendList.data);
-      } catch (err) {       
-      }
-      return
+      } catch (err) {}
+      return;
     };
     getFriends();
-    return
+    return;
   }, [users]);
 
   const handleClick = async () => {
@@ -44,14 +43,16 @@ export default function Rightbar({users}) {
         dispatch({ type: "FOLLOW", payload: users._id });
       }
       setFollowed(!followed);
-    } catch (err) {console.log(err)}
-    return
+    } catch (err) {
+      console.log(err);
+    }
+    return;
   };
 
   const HomeRightbar = () => {
     return (
       <>
-      <div className="birthday__Container">
+        <div className="birthday__Container">
           <img src="/assets/gift.png" alt="" className="birthday__Img" />
           <span className="birthday__Text">
             <b>Pola Foster</b> and <b>3 other friends</b> have a birthday today.
@@ -64,12 +65,12 @@ export default function Rightbar({users}) {
             <Online key={u.id} user={u} />
           ))}
         </ul>
-    </>
-    )
-  }
+      </>
+    );
+  };
 
   const ProfileRightbar = () => {
-    return(
+    return (
       <>
         {users.username !== currentUser.username && (
           <button className="rightbar__Follow-Button" onClick={handleClick}>
@@ -90,18 +91,25 @@ export default function Rightbar({users}) {
           <div className="rightbar__Info-Item">
             <span className="rightbar__Info-Key">Status:</span>
             <span className="rightbar__Info-Value">
-              { users.gender === 1 ?
-                  users.relationship === 1 ? "Не женат" : users.relationship === 2 ? "Женат" : "Есть подруга"
-                :
-                  users.relationship === 1 ? "Не замужем" : users.relationship === 2 ? "Замужем" : "Есть друг"
-              }
+              {users.gender === 1
+                ? users.relationship === 1
+                  ? "Не женат"
+                  : users.relationship === 2
+                  ? "Женат"
+                  : "Есть подруга"
+                : users.relationship === 1
+                ? "Не замужем"
+                : users.relationship === 2
+                ? "Замужем"
+                : "Есть друг"}
             </span>
           </div>
         </div>
         <h4 className="rightbar__Title">User friends</h4>
         <div className="rightbar__Followings">
-        {friends.map((friend) => (
-            <Link key={friend._id}
+          {friends.map((friend) => (
+            <Link
+              key={friend._id}
               to={"/profile/" + friend.username}
               style={{ textDecoration: "none" }}
             >
@@ -115,21 +123,22 @@ export default function Rightbar({users}) {
                   alt=""
                   className="rightbar__Following-Img"
                 />
-                <span className="rightbar__Following-Name">{friend.username}</span>
+                <span className="rightbar__Following-Name">
+                  {friend.username}
+                </span>
               </div>
             </Link>
           ))}
-          
         </div>
       </>
-    )
-  }
+    );
+  };
 
   return (
     <div className="rightbar">
       <div className="rightbar__Wrapper">
-        { users ? <ProfileRightbar/> : <HomeRightbar/> }
+        {users ? <ProfileRightbar /> : <HomeRightbar />}
       </div>
     </div>
-  )
+  );
 }

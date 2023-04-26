@@ -10,6 +10,12 @@ export default function Feed({ username }) {
   // eslint-disable-next-line no-unused-vars
   const [posts, setPosts] = useState([]);
   const { user } = useContext(AuthContext);
+  const options = ["Редактировать", "Удалить"];
+
+  const handleClickDelete = async (id) => {
+    const res = await axios.delete(`/posts/${id}/${user._id}`);
+    setPosts();
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -30,7 +36,12 @@ export default function Feed({ username }) {
       <div className="feed__Wrapper">
         {(!username || username === user.username) && <Share />}
         {posts.map((p) => (
-          <Post key={p._id} post={p} />
+          <Post
+            key={p._id}
+            post={p}
+            options={options}
+            handleClickDelete={handleClickDelete}
+          />
         ))}
       </div>
     </div>

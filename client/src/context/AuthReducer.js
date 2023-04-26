@@ -3,20 +3,20 @@ const AuthReduser = (state, action) => {
     case "LOGIN_START":
       return {
         user: null,
-        isFetching:true,
-        error:false
+        isFetching: true,
+        error: false,
       };
     case "LOGIN_SUCCESS":
       return {
         user: action.payload,
-        isFetching:false,
-        error:false
+        isFetching: false,
+        error: false,
       };
     case "LOGIN_ERROR":
       return {
         user: null,
-        isFetching:false,
-        error:action.payload
+        isFetching: false,
+        error: action.payload,
       };
     case "FOLLOW":
       return {
@@ -36,9 +36,10 @@ const AuthReduser = (state, action) => {
           ),
         },
       };
+
     default:
       return state;
   }
-}
+};
 
 export default AuthReduser;
