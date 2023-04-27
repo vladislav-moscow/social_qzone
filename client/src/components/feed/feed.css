@@ -5,3 +5,29 @@
 .feed__Wrapper{
   padding: 20px;
 }
+
+.confirmation {
+
+}
+.btn{
+  border-radius: 15px;
+  font-size: 1rem;
+  border: none;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.confirmation__Button-Agree {
+  background-color: #078402;
+}
+
+.confirmation__Button-Disagree {
+  background-color: #7f1818;
+}
+.confirmation__Button {
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
+  margin: 15px 50px 5px 50px;
+}
