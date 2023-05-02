@@ -65,13 +65,13 @@
 .rightbar__Followings{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+
 }
 
 .rightbar__Following{
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin: 0 10px 20px 10px;
   cursor: pointer;
 }
 
@@ -79,20 +79,27 @@
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 20px;
+}
+
+.rightbar__Following-Name {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: black;
+  font-weight: 400;
 }
 
 .rightbar__Follow-Button {
   margin-top: 30px;
   margin-bottom: 10px;
   border: none;
+  background-color: #1872f2;
   color: white;
-  background-color: #1877f2;
   border-radius: 5px;
   padding: 5px 10px;
   display: flex;
   align-items: center;
-  font-style: 16px;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
 }

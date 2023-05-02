@@ -31,21 +31,21 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
 
   return (
     <div className="chatOnline">
-      {onlineFriends.map((o) => (
-        <div className="chatOnline__Friend" onClick={() => handleClick(o)}>
-          <div className="chatOnline__Img-Container" key={o.id}>
+      {onlineFriends.map((online) => (
+        <div className="chatOnline__Friend" onClick={() => handleClick(online)}>
+          <div className="chatOnline__Img-Container" key={online.id}>
             <img
               className="chatOnline__Img"
               src={
-                o?.profilePicture
-                  ? PF + o.profilePicture
+                online?.profilePicture
+                  ? PF + online.profilePicture
                   : PF + "person/noAvatar.png"
               }
               alt=""
             />
             <div className="chatOnline__Badge"></div>
           </div>
-          <span className="chatOnline__Name">{o?.username}</span>
+          <span className="chatOnline__Name">{online?.username}</span>
         </div>
       ))}
     </div>

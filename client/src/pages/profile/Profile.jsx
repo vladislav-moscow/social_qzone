@@ -10,16 +10,16 @@ import { useParams } from "react-router-dom";
 export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState({});
-  const username = useParams().username;
+  const { username } = useParams();
 
   useEffect(() => {
     const fetchUser = async () => {
-      const responce = await axios.get(`/users?username=${username}`)
-        setUser(responce.data)
+      const res = await axios.get(`/users?username=${username}`);
+      setUser(res.data);
     };
     fetchUser();
-    return
   }, [username]);
+ 
   return (
     <>
       <Topbar />
@@ -30,12 +30,20 @@ export default function Profile() {
             <div className="profile__Cover">
               <img
                 className="profile__Cover-Img"
-                src={user?.coverPicture ? PF+user.coverPicture : PF+"person/noCover.png"}
+                src={
+                  user.coverPicture
+                    ? PF + user.coverPicture
+                    : PF + "person/noCover.png"
+                }
                 alt=""
               />
               <img
                 className="profile__User-Img"
-                src={user?.profilePicture ? PF+user.profilePicture : PF+"person/noAvatar.png"}
+                src={
+                  user.profilePicture
+                    ? PF + user.profilePicture
+                    : PF + "person/noAvatar.png"
+                }
                 alt=""
               />
             </div>
@@ -46,7 +54,7 @@ export default function Profile() {
           </div>
           <div className="profile__Right-Bottom">
             <Feed username={username}/>
-            <Rightbar users={user.data}/>
+            <Rightbar user={user}/>
           </div>
         </div>
       </div>
