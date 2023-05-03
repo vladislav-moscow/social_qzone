@@ -13,9 +13,8 @@ export default function Rightbar({ user }) {
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [followed, setFollowed] = useState(
-    currentUser.followings.includes(user?._id)
+    currentUser.followings.includes(user?.id)
   );
-  console.log(currentUser.followings.includes(user._id))
 
   useEffect(() => {
     const getFriends = async () => {
@@ -32,12 +31,11 @@ export default function Rightbar({ user }) {
   const handleClick = async () => {
     try {
       if (followed) {
-        console.log("click")
+        console.log("click");
         await axios.put(`/usesr/${user._id}/unfollow`, {
           userId: currentUser._id,
         });
         dispatch({ type: "UNFOLLOW", payload: user._id });
-        
       } else {
         await axios.put(`/users/${user._id}/follow`, {
           userId: currentUser._id,
@@ -62,7 +60,7 @@ export default function Rightbar({ user }) {
         <img src="/assets/ad.png" alt="" className="rightbar__Ad" />
         <h4 className="rightbar__Title">Друзья в сети:</h4>
         <ul className="rightbar__Friend-List">
-        {Users.map((u) => (
+          {Users.map((u) => (
             <Online key={u.id} user={u} />
           ))}
         </ul>
@@ -138,7 +136,7 @@ export default function Rightbar({ user }) {
   return (
     <div className="rightbar">
       <div className="rightbar__Wrapper">
-      {user ? <ProfileRightbar /> : <HomeRightbar />}
+        {user ? <ProfileRightbar /> : <HomeRightbar />}
       </div>
     </div>
   );

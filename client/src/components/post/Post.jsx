@@ -7,19 +7,40 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import Options from "../../components/options/Options";
 
+
 export default function Post({ post, options, handleClickDelete }) {
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [changeMode, setChangeMode] = useState(false);
   const [currentPost, setCurrentPost] = useState();
+  
   const [user, setUser] = useState({});
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser } = useContext(AuthContext);
 
+  /*const toogleModal = () => {
+    setModalActive((prev) => !prev);
+  };
+  const toogleAgreeBtn = async (id) => {
+    setActive((prev) => !prev);
+    if (active) {
+      const res = await axios.delete(`/posts/${id}/${user._id}`).then(await axios.get(`/posts/timeline/${user._id}`));
+      setPosts(
+        res.data.sort((p1, p2) => {
+          return new Date(p2.createdAt) - new Date(p1.createdAt);
+        })
+      );
+    }
+  };
+
+  const handleClickDelete = (id) => {
+    toogleModal();
+    toogleAgreeBtn(id);
+  }*/
 
   const handleClickEdit = (id) => {
     setCurrentPost(id);
-    setChangeMode(true);
+    console.log("first");
 
     //поиск поста и переносит его текст в инпут
     /*postData.posts.forEach((post) => {
@@ -37,7 +58,6 @@ export default function Post({ post, options, handleClickDelete }) {
     }
     handleClickDelete()
   },[])*/
-
 
   useEffect(() => {
     setIsLiked(post.likes.includes(currentUser._id));
@@ -90,6 +110,7 @@ export default function Post({ post, options, handleClickDelete }) {
             />
           </div>
         </div>
+        
         <div className="post__Center">
           <span className="post__Text">{post?.desc}</span>
           <img className="post__Img" src={PF + post.img} alt="" />
