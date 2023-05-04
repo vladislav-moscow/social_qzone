@@ -21,24 +21,26 @@ export default function Feed({ username }) {
   };
   const toogleAgreeBtn = async (id) => {
     setActive((prev) => !prev);
+    if(active) {
+      console.log(id)
+    }
     
-    
-      const res = await axios.delete(`/posts/${id}/${user._id}`).then(await axios.get(`/posts/timeline/${user._id}`));
+     /* const res = await axios.delete(`/posts/${id}/${user._id}`).then(await axios.get(`/posts/timeline/${user._id}`));
       setPosts(
         console.log(res.data)
-        /*res.data.sort((p1, p2) => {
+        res.data.sort((p1, p2) => {
           return new Date(p2.createdAt) - new Date(p1.createdAt);
-        })*/
-      );
+        })
+      );*/
     
   };
   const handleClickDelete = (id) => {
-    toogleModal();
-    setActive((prev) => !prev);
     const postId = id
-    if(active) {
-      console.log(postId)
-    }
+    toogleModal();
+    toogleAgreeBtn(postId)
+    
+    
+    
     
     
   }

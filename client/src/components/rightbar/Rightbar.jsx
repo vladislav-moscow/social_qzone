@@ -77,6 +77,14 @@ export default function Rightbar({ user }) {
             {followed ? <Remove /> : <Add />}
           </button>
         )}
+        {user.username === currentUser.username && (
+          <Link
+            to={`/update/${user.username}`}
+            style={{ textDecoration: "none" }}
+          >
+            <button className="rightbar__Follow-Button">Обновить данные</button>
+          </Link>
+        )}
         <h4 className="rightbar__Title">Информация о пользователе</h4>
         <div className="rightbar__Info">
           <div className="rightbar__Info-Item">
