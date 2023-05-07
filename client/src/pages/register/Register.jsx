@@ -27,8 +27,6 @@ export default function Register() {
         console.log(err);
       }
     }
-    
-    return
   };
 
   const navigateClick = (e) => {

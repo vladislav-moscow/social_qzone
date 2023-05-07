@@ -2,12 +2,16 @@
 import "./update.css";
 import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Updatebar from "../../components/Updatebar/Updatebar";
+import UpdateBasicData from "../../components/updateBasicData/UpdateBasicData";
 
 export default function Update() {
   const [user, setUser] = useState({});
+  const username = useRef();
+  const email = useRef();
+  const password = useRef();
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [togglebar, setTogglebar] = useState(1);
 
@@ -27,7 +31,7 @@ export default function Update() {
                     ? "update__Context-Bar update__Context-Active"
                     : "update__Context-Bar"
                 }>
-                <p>Основные данные</p>
+                <UpdateBasicData/>
               </div>
               <div className={
                   togglebar === 2

@@ -18,6 +18,12 @@ const AuthReducer = (state, action) => {
         isFetching: false,
         error: true,
       };
+      case "LOGIN_UPDATE":
+      return {
+        user: action.payload,
+        isFetching: false,
+        error: false,
+      };
     case "FOLLOW":
       return {
         ...state,
@@ -36,6 +42,7 @@ const AuthReducer = (state, action) => {
           ),
         },
       };
+      
     default:
       return state;
   }

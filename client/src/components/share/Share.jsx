@@ -53,7 +53,7 @@ export default function Share() {
             alt=""
           />
           <input
-            placeholder={`What's in your mind ${user.username}?`}
+            placeholder={`Что у тебя на уме ${user.username}?`}
             className="share__Input"
             ref={desc}
           />
@@ -76,7 +76,7 @@ export default function Share() {
           <div className="share__Options">
             <label htmlFor="file" className="share__Option">
               <PermMedia htmlColor="tomato" className="share__Icon" />
-              <span className="share__Option-Text">Photo or Video</span>
+              <span className="share__Option-Text">Каритнка или видео</span>
               <input
                 style={{ display: "none" }}
                 type="file"
@@ -87,19 +87,19 @@ export default function Share() {
             </label>
             <div className="share__Option">
               <Label htmlColor="blue" className="share__Icon" />
-              <span className="share__Option-Text">Tag</span>
+              <span className="share__Option-Text">Загаловок</span>
             </div>
             <div className="share__Option">
               <Room htmlColor="green" className="share__Icon" />
-              <span className="share__Option-Text">Location</span>
+              <span className="share__Option-Text">Местоположение</span>
             </div>
             <div className="share__Option">
               <EmojiEmotions htmlColor="goldenrod" className="share__Icon" />
-              <span className="share__Option-Text">Feelings</span>
+              <span className="share__Option-Text">Смайлик</span>
             </div>
           </div>
           <button className="share__Button" type="submit">
-            Share
+            Опубликовать
           </button>
         </form>
       </div>
